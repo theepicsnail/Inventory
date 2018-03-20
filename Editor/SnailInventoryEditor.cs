@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using VRCSDK2;
+using System.IO;
 
 [CustomEditor(typeof(SnailInventory))]
 public class SnailInventoryEditor : Editor {
@@ -100,6 +101,9 @@ public class SnailInventoryEditor : Editor {
 
     private void GenerateInventory()
     {
+        if(!Directory.Exists("Assets/tmp"))
+            Directory.CreateDirectory("Assets/tmp");
+
         RemoveInventorySystem();
 
         // Setup the legacy enabler/disablers. 
@@ -230,7 +234,7 @@ public class SnailInventoryEditor : Editor {
         WriteAsset(o, "Assets/tmp/Overrides.overridecontroller");
 
         obj.GetComponent<VRC_AvatarDescriptor>().CustomStandingAnims = o;
-        obj.GetComponent<VRC_AvatarDescriptor>().CustomStandingAnims = o;
+        obj.GetComponent<VRC_AvatarDescriptor>().CustomSittingAnims = o;
         obj.GetComponent<Animator>().runtimeAnimatorController = o;
     }
 }
